@@ -25,6 +25,7 @@ for i in range(1):
     progress_bar.next()
 progress_bar.finish()
 
+
 def searching_and_sorting():# Эта функция вызывает главное меню графического интерфейса пользователя и предлагает сделать выбор
     message = 'Выберите, что хотите сделать: '
     title = 'Главное меню'
@@ -37,7 +38,7 @@ def searching_and_sorting():# Эта функция вызывает главн�
 
 def field_check(message,title,field_names):
     field_values = multenterbox(message,title,field_names)
-    #print(f'field_values {field_values}')
+    print(f'field_values {field_values}')
     while 1:
         if field_values is None: break
         errormsg = ''
@@ -59,7 +60,7 @@ def tags_entry():# Эта функция определяет параметры
     if field_values != None:
         global user_input
         user_input = field_values[0]#если пользователь ввел значение, то сохраняем его в переменную user_input
-        #print(f'user_inpit tag {user_input}')
+        print(f'user_inpit tag {user_input}')
         similarity_tags(user_input)#функция, которая проверяет ввод пользователя на сходство с данными в файле, если пользователь нажимает отмену, то его возвращает обратно на главное меню
 
     else:
@@ -74,7 +75,7 @@ def genre_entry():
     if field_values != None:
         global user_input2
         user_input2 = field_values[0]
-        #print(f'user_input genre {user_input2}')
+        print(f'user_input genre {user_input2}')
         similarity_genre(user_input2)
     else:
         searching_and_sorting()
@@ -83,10 +84,10 @@ def tag():#функция, которая добавляет все совпад
     similarity1 = []
     for i in similarity:
         similarity1.append(tags.loc[tags['tag'].isin(i)])#записываем в отдельный список строки из датафрейма с тэгами, если тэг пользователя и имеющийся тег совпал
-    #print(f'f_tag {similarity1}')
+    print('similarity',similarity1)
     #во временном листе сбрасываем индекс,удаляем столбец с индексами и повторяющиеся записи
     temp_list = similarity1[0]
-    #print(f'temp_lit {temp_list}')
+    print('temp:',temp_list)
     temp_list = temp_list.reset_index()
     temp_list.drop('index',axis = 1, inplace = True)
     temp_list = temp_list.drop_duplicates(subset = 'movieId')
@@ -150,10 +151,10 @@ def similarity_tags(user_input):#функция, которая сравнива
     query = user_input
     choises = tag_list
     res = process.extract(query,choises)
-    #print(res)
+    print(res)
     global similarity
     similarity = [i for i in res if i[1] > 90]
-    #print(similarity)
+    print(similarity)
     if similarity == []:#если совпадений не найдено, то возвращаемся обратно в окно ввода
         tags_entry()
     else:

@@ -44,7 +44,7 @@ def tag():#функция, которая добавляет все совпад
     df1.drop('movieId',axis=1,inplace=True)
     #далее сортируем фильмы по рейтингу и показываем пользователю фильмы с рейтингов более 2.5
     df_sort = df1.sort_values(by = 'rating',ascending=False)
-    df_sort = df_sort[df_sort['rating'] > 2.5]
+    df_sort = df_sort[df_sort['rating'] > 3]
     headings = []#сюда будем записывать названия столбцов для корректного отображения с помощью дальнейшего использования библиотеки 
     headings.insert(0,{'rating': 'Рейтинг','title': '--------Название фильма','genres':'--------Жанр'})
     df_sort = pd.concat([pd.DataFrame(headings),df_sort],ignore_index=True,sort=True)
@@ -77,7 +77,7 @@ def genre():
 
     df1 = pd.merge(temp_list,df,on='movieId',how= 'left')
     df_sort = df1.sort_values(by = 'rating',ascending=False)
-    df_sort = df_sort[df_sort['rating'] > 2.5]
+    df_sort = df_sort[df_sort['rating'] > 3]
     heading = []
     heading.insert(0,{'rating':'Рейтинг','title':'-------Название фильма:','genres': '-----------Жанр'})
     df_sort = pd.concat([pd.DataFrame(heading),df_sort],ignore_index=True,sort= True)
@@ -100,7 +100,7 @@ def similarity_tags(user_input):#функция, которая сравнива
     res = process.extract(query,choises)
     print(res)
     global similarity
-    similarity = [i for i in res if i[1] > 90]
+    similarity = [i for i in res if i[1] > 95]
     print(similarity)
     if similarity == []:#если совпадений не найдено, то возвращаемся обратно в окно ввода
         us.tags_entry()
@@ -112,7 +112,7 @@ def similarity_genre(user_input2):
     choises = genre_list
     res = process.extract(query,choises)
     global similarity2
-    similarity2 = [i for i in res if i[1] > 90]
+    similarity2 = [i for i in res if i[1] > 95]
     if similarity2 == []:
         us.genre_entry()
     else:

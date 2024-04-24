@@ -16,6 +16,24 @@ The project uses a ready-made database from Kaggle (https://www.kaggle.com/datas
 - ratings.csv: includes ratings for movies from different platforms
 - tags.csv: tags that can be used to find movies
 
+## Installing
+
+1. Clone repository
+
+```git clone https://github.com/MilaEgoshina/movie-database-management-system```
+
+2. Creating a virtual environment
+
+```python3 -m venv venv```
+
+3. Activation of the virtual environment
+
+```source venv/bin/activate```
+
+4. Running a script to demonstrate the capabilities of python_notions
+
+```python3 main.py --help```
+
 
 ## User Interface
 

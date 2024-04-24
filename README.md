@@ -1,49 +1,41 @@
-# Информационная система по поиску, сортировке и работы с базой данных по фильмам
+# Movie Database Management System
 
-В данном проекта были реализованы функции:
+This project includes functions for:
 
-- поиска интересующего пользователя фильма по жанру и по выделенным тэгам;
+- Searching for a movie based on genre and selected tags
+- Sorting movies by user ratings from different platforms
+- Adding new movies to the database
+- Deleting existing movies from the database
+- Graphical user interface for user interaction.
 
-- сортировка фильмов по их оценкам пользователей с разных платформ;
+## Data Source
 
-- добавление новых фильмов в базу данных;
+The project uses a ready-made database from Kaggle (https://www.kaggle.com/datasets/garymk/movielens-25m-dataset). The database consists of three files:
 
-- удаление уже имеющихся фильмов из базы данных;
-
-- также предусмотрен графический интерфейс для взаимодействия с пользователем. 
-
-Для реализации проекта была взята готовая база данных с сайта: https://www.kaggle.com/datasets/garymk/movielens-25m-dataset
-
-В данной базе данных представлены три файла:
-
-- movies.csv- файл с названием фильмов и их жанрами
-
-- ratings.csv - файл с рейтингами по фильмам,собранными с разных площадок
-
-- tags.csv - файл с тэгами, по которым можно найти фильм.
+- movies.csv: contains movie titles and genres
+- ratings.csv: includes ratings for movies from different platforms
+- tags.csv: tags that can be used to find movies
 
 
-## Интерфейс программы
+## User Interface
 
-Графический интерфейс для работы с пользователем реализован с помощью библиотеки **EasyGUI**. С помощью функции `def searching_and_sorting` мы обращаемся к пользователю и даем ему возможность выбрать, что можно сделать с имеющейся фильмотекой:
+The graphical user interface is implemented using the **EasyGUI** library. With the `def searching_and_sorting` function user can choose what can be done with the existing film library:
 
-![Главноеменю](main.jpg)
+![Главноеменю](images/main.jpg)
 
-Если пользователь выбирает "Искать фильм по жанру", то с помощью функции `def genre_entry` мы предлагаем пользователю ввести интересующей его жанр фильма в всплывающее окно:
+If the user chooses "Search for a movie by genre", then using the `def genre_entry` function we prompt the user to enter the movie genre in a pop-up window:
 
-![Поиск](Search.jpg)
+![Поиск](images/Search.jpg)
 
-Аналогично с выбором пользователем "Искать фильм по тэгу":
+Similarly when the user chooses “Search movie by tag”:
 
-![Тэг](Tag.jpg)
+![Тэг](images/Tag.jpg)
 
-И также пользователю предлагается выбрать функции по корректировке базы данных, т.е. либо добавить новый фильм в базу данных, либо удалить любой уже имеющийся фильм. Об этих функциях будет подробно описано в модуль по добавлению и удалению данных.
+And also user can choose functions for updating the database, i.e. either add a new movie to the database, or delete any existing movie. Details about these functions are described in the data manipulation module.
 
-# Модуль поиска и сортировки фильмов
+## Movie Search and Sorting Module
 
-После того как пользователь введет интересующей его жанр фильма или тэг, тесно связанный с определенным фильмом, то нам необходимо найти и подобрать список фильмов по заданным параметрам, также предварительно отсортировав их по рейтингу.
-
-Этот функционал реализован в модуле поиска и сортировки данных с помощью функций `def similarity_tags` и `def similarity_genre`. Используя библиотеку `fuzzywuzzy`, мы ищем в файле совпадающее значение с запросом пользователя:
+After selecting a genre or tag, the system searches for matching movies and sorts them by ratings using functions `similarity_tags` and `similarity_genre`. The fuzzywuzzy library is used to find matching values in the dataset. If a suitable match is found, the user is presented with a list of movies ranked by ratings:
 
 ```python
 def similarity_tags(user_input):#функция, которая сравнивает ввод пользователя с данными в файлах на предмет совпадения более 90%
@@ -61,47 +53,49 @@ def similarity_tags(user_input):#функция, которая сравнива
         tag()
 ```
 
-Если найдено подходящее значение, то далее мы направляемся в функцию `def tag` или `def genre`, где мы вновь перебираем датафрейм из файла с данными и формируем уже новый датафрейм из списка с отобранными названиями фильмов, предварительно отсортировав этот список по рейтингу. В итоге пользователю показывается такое окошко:
+If a suitable value is found, then we head to the `def tag` or `def genre` function, where we again iterate through the dataframe from the data file and form a new dataframe from the list with selected movie titles, having previously sorted this list by rating. As a result, the user can observe the following window:
 
-![Результат](result.jpg)
+![Результат](images/result.jpg)
 
-Если же ничего подходящего не найдено, то пользователь вернется обратно на окно ввода интересующего его жанра или тэга.
+If nothing suitable is found, the user will return back to the input window for the genre or tag of interest.
 
-# Модуль добавления и удаления информации из базы данных
+## Data Manipulation Module
 
-Также в главном меню пользователю предлагают добавить новый фильм в базу данных или же удалить уже существующий фильм из фильмотеки. Этот функционал реализован с помощью функций `def add_info` и `def delete_info`.
+Users can add new movies or delete existing ones from the database using functions `add_info` and `delete_info`. When adding a new movie, users are prompted to enter the movie title and genre.
 
-Если пользователю необходимо добавить  новый фильм, то ему предлагается ввести его название и жанр:
+If user needs to add a new movie, he is prompted to enter its title and genre:
 
-![Добавление](add.jpg)
+![Добавление](images/add.jpg)
 
-И уведомляем пользователя, что фильм был успешно загружен в базу данных:
+And we notify the user that the movie was successfully uploaded to the database:
 
-![Результат](ok_msg.jpg)
+![Результат](images/ok_msg.jpg)
 
-И действительно видим, что фильм был добавлен: 
+And indeed we see that the film has been added:
 
-![Файл](file.jpg)
+![Файл](images/file.jpg)
 
-Если пользователю нужно удалить фильм, то мы также предлагаем ему ввести название фильма и его год выпуска:
+If the user needs to delete a movie, we also prompt him to enter the name of the movie and its release year:
 
-![Удаление](del.jpg)
+![Удаление](images/del.jpg)
 
-Также уведомляем пользователя, что фильм был успешно удален:
+We also notify the user that the movie was successfully deleted:
 
-![Удалено](deleted.jpg)
+![Удалено](images/deleted.jpg)
 
-И действительно видим, что фильм был удален из базы данных:
+And indeed we see that the film has been deleted from the database:
 
-**До:**
+**Before:**
 
-![До](do.jpg)
+![До](images/do.jpg)
 
-**После:**
+**After:**
 
-![После](posle.jpg)
+![После](images/posle.jpg)
 
+## Contributors
 
+Feel free to contribute to this project by forking and submitting a pull request. Thank you for your interest and support! 
 
 
 

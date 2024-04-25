@@ -18,19 +18,21 @@ The project uses a ready-made database from Kaggle (https://www.kaggle.com/datas
 
 ## Installing
 
-1. Clone repository
+1. Make sure you have Python version 3.11.2 installed
+   
+2. Clone repository
 
 ```git clone https://github.com/MilaEgoshina/movie-database-management-system```
 
-2. Creating a virtual environment
+3. Creating a virtual environment
 
 ```python3 -m venv venv```
 
-3. Activation of the virtual environment
+4. Activation of the virtual environment
 
 ```source venv/bin/activate```
 
-4. Running a script to demonstrate the capabilities of python_notions
+5. Running a script to demonstrate the capabilities of python_notions
 
 ```python3 main.py --help```
 
